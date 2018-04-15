@@ -2,5 +2,4 @@ Networking
 ===
 Notes about networking, protocols...
 
-* [Functions at Runtime](functions-runtime.md)
-* [Scope & Closures](scope-closures.md)
+* [SMPP (Short Message Peer-to-Peer)](smpp.md)
