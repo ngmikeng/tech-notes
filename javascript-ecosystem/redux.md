@@ -117,9 +117,9 @@ const store = createStore(todoApp)
 
 ## Redux và MVC
 - Trong mô hình MVC data flow được truyền theo 2 chiều.
-![SMPP Model](./images/docker-dev-view.png)
+![MVC Model](./images/mvc-model.png)
 - Trong Redux data flow được truyền theo 1 chiều.
-![SMPP Model](./images/redux-dataflow.png)
+![Redux Dataflow](./images/redux-dataflow.png)
 #### Analogies
 
 - `Actions = Controller`: Action tương tự như Controller, Khi muốn thay đổi gì đó trong app (ví dụ: fetch data, thay đổi trạng thái isLoading flag...) ta phải dispatch một action, tương tự như trong MVC ta phải gọi các method trong controller.
