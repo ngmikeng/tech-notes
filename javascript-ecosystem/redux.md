@@ -36,6 +36,7 @@ function addTodo(text) {
 ```
 
 ## Reducers
+- Đóng vai trò như 1 dispatch listener, reducer sẽ được kích hoạt (triggering) khi nhận được tính hiệu dispatch.
 - Reducer xác định state của app sẽ thay đổi như thế nào tương ứng với mô tả của action được gửi đến store.
 - Action chỉ mô tả thay đổi gì sẽ xảy ra với state (What), còn reducer thì mô tả cách state sẽ thay đổi như thế nào (How).
 - Reducer là pure function nhận đầu vào là state trước đó và một action, giá trị trả về của nó là state tiếp theo.
@@ -72,7 +73,7 @@ export default reducer
 ## Store
 - Store là object đóng vai trò kết hợp action và reducer lại với nhau, hay nói cách khác `action` và `reducer` sẽ làm việc với nhau thông qua `store`.
 - Store giữ một số nhiệm vụ sau:
-  - Vai trò như người bảo vệ state của cả app;
+  - Quản lý state của app, đóng vai trò như một global state;
   - Cho phép access state thông qua method `getState()`;
   - Cho phép thay đổi state thông qua method `dispatch(action)`;
   - Đăng ký các listener thông qua method `subscribe(listender)`;
@@ -104,7 +105,13 @@ const store = createStore(todoApp)
 - Các listener đã đăng ký bởi `store.subscribe(listener)` sẽ được gọi.
 - Các listener có thể gọi `store.getState()` để lấy state hiện tại.
 
-## Presentational and Container Components
+## Usage with React
+- Chia các component thành 2 loại: Presentational component và Container component.
+- Các Presentational component chỉ đơn giản nhận data từ props để show lên view, không cần connect với Redux.
+- Các Container component phải connect vào Redux để có thể access được Redux store.
+- Có 2 cách để Redux store available trong container component là: tự truyền store vào props của component (không nên), sử dự wrapper component `<Provider>` của react-redux trong root component để store available ở tất cả container component.
+
+### Presentational and Container Components
 || Presentational Components | Container Components |
 |----|----|----|
 |Purpose | How things look (markup, styles) | How things work (data fetching, state updates) |
@@ -115,6 +122,16 @@ const store = createStore(todoApp)
 - Trong Redux hầu hết các component được viết là `Presentational Component`, nhưng để component giao tiếp được với Redux ta cần tạo ra một vài `Container Component`.
 - Các `Container Component` được tạo ra bằng method `connect()` của React Redux.
 
+### Connect method of react-redux
+
+```
+connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])([Component])
+```
+
+- [`connect()`]: Giúp connect component với Redux.
+- [`mapStateToProps(state, [ownProps]): stateProps`] (Function): Khi được define, function này sẽ được gọi mỗi khi có update trên store, function phải trả về một plain object để merge vào props của component.
+- [`mapDispatchToProps(dispatch, [ownProps]): dispatchProps`] (Object or Function): Giúp handle dispatch các actions từ component.
+
 ## Redux và MVC
 - Trong mô hình MVC data flow được truyền theo 2 chiều.
 ![MVC Model](./images/mvc-model.png)
@@ -122,7 +139,7 @@ const store = createStore(todoApp)
 ![Redux Dataflow](./images/redux-dataflow.png)
 #### Analogies
 
-- `Actions = Controller`: Action tương tự như Controller, Khi muốn thay đổi gì đó trong app (ví dụ: fetch data, thay đổi trạng thái isLoading flag...) ta phải dispatch một action, tương tự như trong MVC ta phải gọi các method trong controller.
+- `Actions = Controller`: Action tương tự như Controller, khi muốn thay đổi gì đó trong app (ví dụ: fetch data, thay đổi trạng thái isLoading flag...) ta phải dispatch một action, tương tự như trong MVC ta phải gọi các method trong controller.
 - `Reducers = Model`: Reducer làm nhiệm vụ giữ trạng thái hiện tại của app (user info, list items hiện thị...) và nó sẽ quyết định làm gì khi một action được gọi. Ví dụ, trong MVC ta có một model với method là setName() cho Controller gọi, thì tương tự trong Redux ta có một reducer handler (pure function) để handle action "SET_NAME" trong state.
 - `Stores = ???`: Store là thành phần đặc biện trong Redux, đóng vai trò như một container cho app state, giúp tổng hợp tất cả reducer (thông qua 1 root reducer). Store có một method giúp lấy state hiện tại của app, và subscribe vào Redux state. 
 - `Components = Views`: Component tương tự như View, hiển thị thông tin được lấy từ state. Nên chia các component thành 2 loại là Presentation Component và Container Component. Nhờ vậy cho phép ta gọi và truyền các action như là `props` của component.
@@ -130,3 +147,4 @@ const store = createStore(todoApp)
 ## Referrences
 - https://redux.js.org/basics
 - https://hackernoon.com/thinking-in-redux-when-all-youve-known-is-mvc-c78a74d35133
+- https://github.com/reduxjs/react-redux/blob/master/docs/api.md
