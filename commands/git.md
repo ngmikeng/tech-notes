@@ -90,3 +90,28 @@ $ git config user.email [your-git-email]
 ```
 $ git commit --no-edit
 ```
+
+- Undo last commit (haven't pushed)
+
+```
+$ git reset HEAD~1 --soft
+```
+
+- Undo last commit (have pushed on master branch)
+
+```
+$ git checkout master
+$ git revert a8172f36 // hash of the commit you want to destroy
+$ git push origin master
+
+```
+
+Keep the revert changes in local changes.
+
+```
+$ git revert --no-commit 86b48ba (hash of the revert commit).
+
+```
+
+## Refs
+https://stackoverflow.com/questions/19859486/how-to-un-commit-last-un-pushed-git-commit-without-losing-the-changes/19859644
