@@ -6,7 +6,7 @@ Setup Cordova and Android (Ubuntu)
 - Android SDK.
 - Gradle.
 - Android Emulator (Required for emulate).
-- In case have to manualy setup PATH variables for Java SDK, Android SDK and Gradle.
+- In some cases you have to manualy setup PATH variables for Java SDK, Android SDK and Gradle.
 - `cordova` install via `npm`.
 
 ### Steps todo

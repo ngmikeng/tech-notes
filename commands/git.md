@@ -106,7 +106,7 @@ $ git push origin master
 
 ```
 
-Keep the revert changes in local changes.
+- Keep the revert changes in local changes.
 
 ```
 $ git revert --no-commit 86b48ba (hash of the revert commit).
