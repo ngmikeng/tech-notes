@@ -33,9 +33,52 @@ $ docker run --name phpmyadmin -d --link mysql-server:db -p 8080:80 phpmyadmin/p
 ```shell
 $ docker ps [-a]
 ```
-- Remove container
+- Stop & Remove container
 ```shell
+$ docker stop [CONTAINER_ID]
 $ docker rm [CONTAINER_ID]
+```
+
+#### Issues with Phpmyadmin
+- Issue: Host '172.18.0.1' is not allowed to connect to this MySQL server. [Link](https://github.com/docker-library/mysql/issues/275#issuecomment-292208567)
+
+- Issue phpmyadmin on mysql 8.0: mysqli_real_connect(): The server requested authentication method unknown to the client [caching_sha2_password]. [Link](https://stackoverflow.com/questions/49948350/phpmyadmin-on-mysql-8-0)
+
+#### First Mysql Bash
+- View list user and their host
+
+```
+mysql> SELECT host, user FROM mysql.user;
+```
+
+- Alter user root password
+
+```
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'newpassword';
+```
+
+- Create an user for accessing from any host.
+
+```
+mysql> CREATE USER 'someuser'@'%' IDENTIFIED BY 'userpassword';
+```
+
+- Fix issue unable login on phpmyadmin (mysql 8.0) (`caching_sha2_password`)
+
+```
+mysql> ALTER USER someuser IDENTIFIED WITH mysql_native_password BY 'userpassword';
+```
+
+- Create an database 'my_db'
+
+```
+mysql> CREATE DATABASE my_db;
+```
+
+- Grant all permission for user on a specify database
+
+```
+mysql> GRANT ALL ON my_db.* to 'someuser'@'%';
 ```
 
 ## References
