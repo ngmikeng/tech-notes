@@ -19,11 +19,12 @@ $ docker pull phpmyadmin/phpmyadmin
 ```
 - Run mysql server container
 ```shell
-$ docker run --name mysql-server -e MYSQL_ROOT_PASSWORD=[PASSWORD] -d mysql:latest
+$ docker run --name mysql-server -p 3306:3306 -e MYSQL_ROOT_PASSWORD=[PASSWORD] -d mysql:latest
 ```
 - Run bash from container mysql
 ```shell
 $ docker run -it mysql-server bash
+$ docker exec -it mysql-server mysql -u root -p
 ```
 - Run phpmyadmin container
 ```shell
