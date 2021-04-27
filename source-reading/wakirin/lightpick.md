@@ -1,4 +1,4 @@
-Repository:    	https://github.com/mitsuhiko/indicatif
+Repository:    	https://github.com/wakirin/lightpick
 Description:   	Javascript date range picker - lightweight, no jQuery
 Commit:        	564037b
 Main Language: 	Javascript 
